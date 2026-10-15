@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080b18">
+  <title>OFFICIAL STOR | Menu Komunitas</title>
+  <style>
+    body.locked { overflow:hidden; }
+    .intro-screen { position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; padding:24px; background:radial-gradient(ellipse at 50% 35%,#27205e 0,transparent 48%),linear-gradient(145deg,#070916,#071d2b 75%,#080b18); transition:opacity .85s ease, visibility .85s ease; }
+    .intro-screen::before, .intro-screen::after { content:""; position:absolute; width:min(70vw,360px); aspect-ratio:1; border:1px solid #9b8cff55; border-radius:50%; animation:orbit 9s linear infinite; box-shadow:0 0 55px #7c3aed18,inset 0 0 45px #22d3ee12; }
+    .intro-screen::after { width:min(88vw,470px); border-color:#22d3ee35; animation-direction:reverse; animation-duration:14s; }
+    .intro-screen.hidden { opacity:0; visibility:hidden; pointer-events:none; }
+    .intro-content { position:relative; z-index:1; width:min(460px,100%); text-align:center; animation:introRise 1s cubic-bezier(.2,.8,.2,1) both; }
+    .intro-crown { width:104px; height:104px; margin:0 auto 24px; display:grid; place-items:center; font-size:47px; border-radius:32px; background:linear-gradient(135deg,#8b5cf6,#0891b2); border:1px solid #ffffff55; box-shadow:0 0 65px #8b5cf655; animation:crownPulse 2.8s ease-in-out infinite; }
+    .intro-kicker { color:#a5f3fc; font-size:11px; font-weight:800; letter-spacing:4px; margin-bottom:12px; }
+    .intro-content h2 { font-size:clamp(30px,8vw,48px); line-height:1.05; margin:0; letter-spacing:1.5px; }
+    .intro-content p { color:#b9c2df; line-height:1.7; font-size:14px; margin:17px auto 27px; max-width:330px; }
+    .open-channel { display:inline-flex; justify-content:center; align-items:center; gap:10px; min-width:210px; border:0; padding:16px 25px; border-radius:17px; color:white; font-size:14px; font-weight:800; letter-spacing:.6px; cursor:pointer; background:linear-gradient(100deg,#7c3aed,#2563eb,#0891b2); background-size:200% 200%; box-shadow:0 12px 40px #2563eb55; transition:transform .25s ease,box-shadow .25s ease,background-position .5s ease; }
+    .open-channel:hover { transform:translateY(-3px); background-position:100% 0; box-shadow:0 17px 45px #0891b255; }
+    .open-channel:active { transform:scale(.96); }
+    .intro-screen.leaving .intro-content { animation:introExit .55s ease forwards; }
+    @keyframes orbit { to { transform:rotate(360deg) scale(1.05); } }
+    @keyframes introRise { from { opacity:0; transform:translateY(28px) scale(.96); } to { opacity:1; transform:translateY(0) scale(1); } }
+    @keyframes introExit { to { opacity:0; transform:translateY(-18px) scale(.97); filter:blur(8px); } }
+    @keyframes crownPulse { 50% { transform:translateY(-5px); box-shadow:0 0 85px #8b5cf677; } }
+    :root { --bg:#080b18; --card:rgba(20,27,52,.78); --line:rgba(255,255,255,.12); --text:#f7f8ff; --muted:#aab3d0; --a:#8b5cf6; --b:#22d3ee; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; color:var(--text); font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:radial-gradient(ellipse at 15% 0%,#25215a 0,transparent 42%),radial-gradient(ellipse at 100% 35%,#073e52 0,transparent 35%),var(--bg); overflow-x:hidden; }
+    html { scroll-behavior:smooth; }
+    body::before { content:""; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.18; background-image:radial-gradient(#c4b5fd 0.7px,transparent 0.7px); background-size:26px 26px; mask-image:linear-gradient(to bottom,black,transparent 82%); animation:starsDrift 24s linear infinite; }
+    .glow { position:fixed; width:260px; height:260px; border-radius:50%; filter:blur(85px); opacity:.22; pointer-events:none; animation:float 9s ease-in-out infinite alternate; }
+    .glow.one { background:#9333ea; top:20%; left:-120px; } .glow.two { background:#06b6d4; right:-130px; bottom:8%; animation-delay:-4s; }
+    @keyframes float { to { transform:translate(35px,-25px) scale(1.12); } }
+    .wrap { width:min(920px,92%); margin:auto; padding:34px 0 28px; position:relative; }
+    header { text-align:center; padding:20px 8px 26px; animation:enter .75s ease both; }
+    .logo { width:88px; height:88px; display:grid; place-items:center; margin:0 auto 17px; border-radius:27px; font-size:36px; background:linear-gradient(135deg,var(--a),var(--b)); box-shadow:0 12px 40px #6d28d955; border:1px solid #ffffff50; transform:rotate(-4deg); }
+    h1 { margin:0; font-size:clamp(28px,6vw,46px); letter-spacing:1.8px; line-height:1.1; }
+    .subtitle { color:var(--muted); max-width:520px; margin:12px auto 0; line-height:1.65; font-size:14px; }
+    .badge { display:inline-flex; align-items:center; gap:7px; margin-top:17px; padding:7px 12px; border:1px solid var(--line); border-radius:999px; background:#ffffff08; color:#d8dcff; font-size:12px; letter-spacing:.7px; }
+    .dot { width:7px; height:7px; border-radius:50%; background:#34d399; box-shadow:0 0 12px #34d399; }
+    .section-title { display:flex; align-items:center; gap:10px; margin:20px 0 13px; color:#e7eaff; font-size:13px; letter-spacing:1.7px; text-transform:uppercase; }
+    .section-title:after { content:""; height:1px; flex:1; background:linear-gradient(90deg,var(--line),transparent); }
+    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .card { display:flex; align-items:center; gap:15px; padding:18px; min-height:112px; border:1px solid var(--line); border-radius:22px; background:var(--card); text-decoration:none; color:inherit; backdrop-filter:blur(15px); box-shadow:0 12px 30px #00000018; transition:transform .28s cubic-bezier(.2,.8,.2,1),border-color .28s ease,box-shadow .28s ease,background .28s ease; animation:cardFloat 5.5s ease-in-out infinite,enter .65s ease both; }
+    .card:nth-child(2n) { animation-delay:.35s, .15s; }
+    .card::before { content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; background:linear-gradient(115deg,transparent 15%,#ffffff0d 45%,transparent 70%); transform:translateX(-120%); transition:transform .7s ease; }
+    .card { position:relative; overflow:hidden; }
+    .card:hover::before { transform:translateX(120%); }
+    .card:hover .icon { transform:rotate(-7deg) scale(1.08); }
+    .icon { transition:transform .28s ease,filter .28s ease; }
+    .card:hover .icon { filter:drop-shadow(0 0 10px #67e8f988); }
+    .card:hover { transform:translateY(-4px); border-color:#9f8affaa; box-shadow:0 17px 35px #00000040; }
+    .card:active { transform:scale(.975); }
+    .icon { flex:0 0 54px; height:54px; border-radius:17px; display:grid; place-items:center; font-size:25px; background:linear-gradient(135deg,#ffffff18,#ffffff06); border:1px solid #ffffff15; }
+    .wa { background:linear-gradient(135deg,#16a34a55,#22c55e12); }
+    .channel { background:linear-gradient(135deg,#06b6d455,#2563eb22); }
+    .copy { min-width:0; flex:1; }
+    .copy strong { display:block; font-size:16px; margin-bottom:5px; }
+    .copy span { display:block; color:var(--muted); font-size:12px; line-height:1.45; }
+    .arrow { color:#c4b5fd; font-size:23px; transition:transform .2s; }
+    .card:hover .arrow { transform:translateX(4px); }
+    .main-cta { position:relative; overflow:hidden; display:block; text-align:center; margin-top:17px; padding:15px 20px; border-radius:16px; text-decoration:none; color:white; font-weight:750; letter-spacing:.4px; background:linear-gradient(100deg,#7c3aed,#2563eb,#0891b2); background-size:200% 200%; box-shadow:0 12px 30px #2563eb35; transition:transform .2s,background-position .4s; }
+    .main-cta::after { content:""; position:absolute; top:-50%; left:-70%; width:45%; height:200%; transform:rotate(20deg); background:#ffffff25; transition:left .7s ease; }
+    .main-cta:hover::after { left:130%; }
+    .main-cta:hover { background-position:100% 0; transform:translateY(-3px); box-shadow:0 17px 38px #2563eb55; } .main-cta:active { transform:scale(.98); }
+    footer { text-align:center; color:#858eae; font-size:11px; padding:30px 0 5px; letter-spacing:.6px; }
+    @keyframes enter { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes starsDrift { to { background-position:130px 90px; } }
+    @keyframes cardFloat { 0%,100% { translate:0 0; } 50% { translate:0 -3px; } }
+    .logo { animation:logoBob 4s ease-in-out infinite; }
+    @keyframes logoBob { 0%,100% { transform:rotate(-4deg) translateY(0); } 50% { transform:rotate(3deg) translateY(-5px); } }
+    .badge { animation:badgeGlow 3.5s ease-in-out infinite; }
+    @keyframes badgeGlow { 0%,100% { box-shadow:0 0 0 #22d3ee00; } 50% { box-shadow:0 0 18px #22d3ee20; } }
+    .section-title { animation:enter .8s ease both; }
+    footer { animation:enter 1s ease both; }
+    @media(max-width:560px) { .grid { grid-template-columns:1fr; gap:11px; } .card { min-height:98px; padding:15px; } .wrap { padding-top:20px; } }
+    @media(prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; } }
+  </style>
+</head>
+<body class="locked">
+  <section class="intro-screen" id="introScreen" aria-label="Animasi pembuka">
+    <div class="intro-content">
+      <div class="intro-crown" aria-hidden="true">👑</div>
+      <div class="intro-kicker">WELCOME TO</div>
+      <h2>OFFICIAL<br><span style="background:linear-gradient(90deg,#c4b5fd,#67e8f9);-webkit-background-clip:text;background-clip:text;color:transparent">STOR</span></h2>
+      <p>Temukan semua grup dan saluran kami dalam satu tempat. Tekan tombol di bawah untuk membuka menu saluran.</p>
+      <button class="open-channel" id="openChannel" type="button">📢 BUKA SALURAN <span>→</span></button>
+    </div>
+  </section>
+  <div class="glow one"></div><div class="glow two"></div>
+  <main class="wrap">
+    <header>
+      <div class="logo" aria-hidden="true">👑</div>
+      <h1>OFFICIAL <span style="background:linear-gradient(90deg,#c4b5fd,#67e8f9);-webkit-background-clip:text;background-clip:text;color:transparent">STOR</span></h1>
+      <p class="subtitle">SELAMAT DATA DI WEBSITE SALURAN KAMI PILIH SEMUA NYA AJA YG ADA DI SITUH</p>
+      <div class="badge"><span class="dot"></span> COMMUNITY HUB</div>
+    </header>
+
+    <div class="section-title">💬 Grup WhatsApp</div>
+    <div class="grid">
+      <a class="card" href="https://chat.whatsapp.com/CVsiTJwhaKCBvgNejKWlwG?s=cl&amp;p=a&amp;mlu=4&amp;ilr=4" target="_blank" rel="noopener noreferrer">
+        <div class="icon wa">👥</div><div class="copy"><strong>GRUP RESMI</strong><span>Gabung komunitas dan ngobrol bersama anggota.</span></div><span class="arrow">›</span>
+      </a>
+    </div>
+
+    <div class="section-title">📢 Saluran WhatsApp</div>
+    <div class="grid">
+      <a class="card" href="https://whatsapp.com/channel/0029Vb7Atub96H4Whbd17o3E" target="_blank" rel="noopener noreferrer">
+        <div class="icon channel">📣</div><div class="copy"><strong>SALURAN CIT 1</strong><span>Update dan informasi terbaru.</span></div><span class="arrow">›</span>
+      </a>
+      <a class="card" href="https://whatsapp.com/channel/0029VbCtCkuAojYxWy8Ufw3n" target="_blank" rel="noopener noreferrer">
+        <div class="icon channel">⚡</div><div class="copy"><strong>SALURAN CIT 2</strong><span>Ikuti kabar dan pengumuman komunitas.</span></div><span class="arrow">›</span>
+      </a>
+      <a class="card" href="https://whatsapp.com/channel/0029Vb94K7L6BIEkEeqaEK34" target="_blank" rel="noopener noreferrer">
+        <div class="icon channel">🌟</div><div class="copy"><strong>SALURAN FILE BRUTAL DI SINI</strong><span>Buka saluran file brutal kami di WhatsApp.</span></div><span class="arrow">›</span>
+      </a>
+    </div>
+
+    <a class="main-cta" href="https://prokekx-png.github.io/WEBSITE-OFFICIAL-STOR/" target="_blank" rel="noopener noreferrer">🚀 BUKA WEBSITE OFFICIAL STOR</a>
+    <footer>© <span id="year"></span> OFFICIAL STOR · MADE WITH ✦</footer>
+  </main>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const introScreen = document.getElementById('introScreen');
+    document.getElementById('openChannel').addEventListener('click', () => {
+      introScreen.classList.add('leaving');
+      setTimeout(() => {
+        introScreen.classList.add('hidden');
+        document.body.classList.remove('locked');
+      }, 520);
+    });
+    document.querySelectorAll('a.card, a.main-cta').forEach((el, i) => {
+      el.style.animationDelay = (i * 90) + 'ms';
+      el.addEventListener('click', () => {
+        el.style.filter = 'brightness(1.2)';
+        setTimeout(() => { el.style.filter = ''; }, 220);
+      });
+    });
+  </script>
+</body>
+</html>
